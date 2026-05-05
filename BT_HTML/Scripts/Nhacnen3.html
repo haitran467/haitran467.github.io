@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Khuôn mặt đáng thương | Music Player</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            width: 95%;
+            max-width: 850px;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .video-section {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .lyrics-section {
+            padding: 40px 20px;
+            height: 400px;
+            overflow-y: auto;
+            text-align: center;
+            scrollbar-width: thin;
+            scrollbar-color: #00FFFF transparent;
+        }
+
+        .lyrics-section::-webkit-scrollbar {
+            width: 5px;
+        }
+        .lyrics-section::-webkit-scrollbar-thumb {
+            background-color: #00FFFF;
+            border-radius: 10px;
+        }
+
+        .song-title {
+            color: #00FFFF;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .artist-name {
+            font-size: 1.1rem;
+            color: #FFD700;
+            margin-bottom: 30px;
+        }
+
+        .lyric-line {
+            font-size: 1.25rem;
+            margin: 18px 0;
+            line-height: 1.6;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .lyric-line:hover {
+            opacity: 1;
+            color: #00FFFF;
+            transform: scale(1.1);
+            cursor: default;
+        }
+
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-bottom: 30px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+        <div class="video-section">
+            <video controls autoplay loop>
+                <source src="../Videos/KhuonMatDangThuong.mp4" type="video/mp4">
+                Trình duyệt của bạn không hỗ trợ video.
+            </video>
+        </div>
+
+        <div class="lyrics-section">
+            <div class="song-title"><strong>Khuôn mặt đáng thương</strong></div>
+            <div class="artist-name">Trình bày: Sơn Tùng MTP</div>
+
+            <div class="lyric-line">Đôi môi này đi về ai?</div>
+            <div class="lyric-line">Ok, đêm nay sẽ là một đêm tuyệt vời mà</div>
+            <div class="lyric-line">Sơn Tùng M-TP!</div>
+
+            <div class="lyric-line">Thơm mơ màng, mùi hương theo làm gió cuốn em đi</div>
+            <div class="lyric-line">Kề bên vai ai từng đêm?</div>
+            <div class="lyric-line">Eh... Nhẹ nhàng rơi nơi anh</div>
+            <div class="lyric-line">Eh... Ai giấu em đi?</div>
+            <div class="lyric-line">Mang em về, liệu rằng em còn nhớ tiếng yêu không</div>
+            <div class="lyric-line">Ở đây ngay phía sau em này</div>
+            <div class="lyric-line">Eh... Lặng một mình anh thôi</div>
+            <div class="lyric-line">Níu giữ lại những âm thầm và nhớ</div>
+
+            <div class="lyric-line">Đừng khiến đôi môi dịu êm phải chịu</div>
+            <div class="lyric-line">Ngàn giọt nước mắt đắng cay</div>
+            <div class="lyric-line">Hạt mưa rơi... Tình chơi vơi...</div>
+            <div class="lyric-line">Giấc mơ này biết đi về đâu?</div>
+            <div class="lyric-line">Bài hát khi xưa anh viết bây giờ phải đặt dấu chấm hết thôi</div>
+            <div class="lyric-line">Ở cuối con đường anh xin một điều ước...</div>
+            <div class="lyric-line">Cho em bình yên vững đôi chân</div>
+
+            <div class="lyric-line highlight">Cánh hoa úa tàn</div>
+            <div class="lyric-line highlight">Bức tranh vén màn</div>
+            <div class="lyric-line highlight">Bóng ai xa ngút ngàn</div>
+            <div class="lyric-line highlight">Nước mắt rơi ứa tràn</div>
+            <div class="lyric-line">Sầu làn mi khép, tình buồn ai ép</div>
+            <div class="lyric-line highlight">Biết đi về chốn đâu, khuôn mặt đáng thương?</div>
+            
+            <div class="lyric-line highlight">Tấm thân héo mòn</div>
+            <div class="lyric-line highlight">Nỗi đau có còn</div>
+            <div class="lyric-line highlight">Đắng cay em đã chọn</div>
+            <div class="lyric-line highlight">Chính em đã chọn</div>
+            <div class="lyric-line">Rời làn hơi ấm, tình này không thấm</div>
+            <div class="lyric-line highlight">Biết ai còn nhớ ai, khuôn mặt đáng thương</div>
+
+            <div class="lyric-line">Em giờ không phải em mà</div>
+            <div class="lyric-line">Anh thề không phải em mà</div>
+            <div class="lyric-line">Khuôn mặt em yêu vẫn thế nhưng có lẽ cảm</div>
+            <div class="lyric-line">Xúc đã quá nhạt phai mà</div>
+            <div class="lyric-line">Nơi đâu cho anh cảm xúc thăng hoa?</div>
+            <div class="lyric-line">Nơi đâu anh nhìn khoảng cách đôi ta?</div>
+            <div class="lyric-line">Không gian đâu có chắc cho em nhìn ra?</div>
+            <div class="lyric-line">Một con người đến từ hôm qua</div>
+
+            <div class="lyric-line">Em giờ đang ở nơi nào?</div>
+            <div class="lyric-line">Cơn gió mang em đến nơi nào?</div>
+            <div class="lyric-line">Bên cạnh ai kia ở nơi nào?</div>
+            <div class="lyric-line">Đôi chân em lang thang đến nơi nào?</div>
+            <div class="lyric-line">Nói cho anh nghe... Bước đi vội vàng...</div>
+
+            <div class="lyric-line">Ngày đó ấm áp ấy sẽ mãi mãi không bên em nữa đâu</div>
+            <div class="lyric-line">Làn gió ấm áp ấy sẽ mãi mãi không ôm em như trước</div>
+            <div class="lyric-line">Lời nói ấm áp ấy sẽ mãi mãi không bên em nữa đâu</div>
+            <div class="lyric-line">Ở đó, chớ có nhớ, có khóc vấn vương về ai nơi này....</div>
+
+            <div class="lyric-line highlight">Cánh hoa úa tàn...</div>
+            <div class="lyric-line highlight">Khuôn mặt đáng thương...</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Designed by: Trần Văn Duy Hải - CN24CD
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Danh Bạ Website</title>
+    <style>
+        body {
+            background-color: #f0f0f0; 
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 600px;
+            margin: 40px auto;
+
+            background-image: url('../Images/bg1.avif'); 
+            background-repeat: repeat;
+            background-color: rgba(230, 215, 215, 0.85);
+            background-blend-mode: soft-light; 
+            padding: 30px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: blue;
+            text-transform: uppercase;
+            margin-top: 0;
+        }
+
+        h3 {
+            border-bottom: 1px solid #999;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: red;
+        }
+
+        .ads-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: flex-start;
+        }
+
+        .ads-container img {
+            width: 200px;
+            height: 100px;
+            object-fit: cover; 
+            background-color: transparent; 
+            padding: 0; 
+            border: 1px solid #ccc; 
+            border-radius: 4px;
+            display: block;
+        }
+
+        .footer-mail {
+            margin-top: 30px;
+            border-top: 1px solid #999;
+            padding-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Danh Bạ Website</h2>
+
+    <h3>Tin Tức</h3>
+    <ul>
+        <li><a href="https://vnexpress.net" target="_blank">Tin tức việt nam (VnExpress)</a></li>
+        <li><a href="https://tuoitre.vn" target="_blank">Báo tuổi trẻ</a></li>
+    </ul>
+
+    <h3>Giải trí</h3>
+    <ul>
+        <li><a href="https://nhacso.net" target="_blank">Nhạc số Online</a></li>
+        <li><a href="https://ngoisao.vn" target="_blank">Giới thiệu ngôi sao</a></li>
+    </ul>
+
+    <h3>Liên kết quảng cáo</h3>
+    <div class="ads-container">
+        <a href="https://echip.com.vn" target="_blank">
+            <img src="../Images/echip.jpg" alt="Báo Echip">
+        </a>
+        <a href="https://vietnamnet.vn" target="_blank">
+            <img src="../Images/vietnamnet.jpg" alt="Vietnamnet">
+        </a>
+    </div>
+
+    <div class="footer-mail">
+        Liên hệ: <a href="mailto:hpt7777@gmail.com">Gửi mail</a>
+    </div>
+</div>
+
+</body>
+</html>
