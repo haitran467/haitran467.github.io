@@ -4,41 +4,58 @@
 <meta charset="utf-8">
 <title>Footer Đơn Giản</title>
 <style>
-    /* Phần CSS tối giản cho Footer */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
     .footer-simple {
-        padding: 20px 0;
-        border-top: 1px solid #e1e2e4; /* Đường kẻ mờ ngăn cách */
-        color: #6c757d; /* Màu chữ xám nhẹ chuyên nghiệp */
+        padding: 25px 0; 
+        width: 100%;
+        margin: 0;
+        
+        background: url('../images/banner.gif') repeat;
+        background-size: auto;
+        
+        color: #ffffff; 
         font-family: Arial, sans-serif;
         font-size: 14px;
         text-align: center;
+        
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9), 0 0 6px rgba(46, 204, 113, 0.6);
+        
+        box-sizing: border-box; 
     }
 
     .footer-simple strong {
-        color: #343a40; /* Tên bôi đậm màu tối hơn để nổi bật */
+        color: #2ecc71; 
+        font-weight: bold;
+        letter-spacing: 0.5px;
     }
 
     .footer-school {
         margin-left: 10px;
         padding-left: 10px;
-        border-left: 1px solid #dee2e6; /* Gạch đứng phân cách nhẹ */
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        font-weight: 500;
     }
 
-    /* Đảm bảo hiển thị tốt trên điện thoại */
     @media (max-width: 600px) {
         .footer-school {
             display: block;
             border-left: none;
             margin-left: 0;
             padding-left: 0;
-            margin-top: 5px;
+            margin-top: 8px;
         }
     }
 </style>
 </head>
 
 <body>
-	
+    
     <footer class="footer-simple">
         Designed by <strong>Trần Văn Duy Hải</strong>
         <span class="footer-school">TRƯỜNG CAO ĐẲNG CÔNG NGHỆ CAO ĐỒNG NAI</span>
