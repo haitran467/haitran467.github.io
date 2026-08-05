@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông Tin Liên Hệ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        /* Thẻ liên hệ dạng kính mờ */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 35px 30px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Avatar đại diện */
+        .avatar {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-bottom: 5px;
+        }
+
+        .school {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            margin: 20px 0;
+        }
+
+        /* Danh sách thông tin liên lạc */
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 12px 0;
+            font-size: 1rem;
+            color: #f1f5f9;
+        }
+
+        .info-item a {
+            color: #f1f5f9;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .info-item a:hover {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+
+<div id="contact-card"></div>
+
+<script>
+    // Sử dụng innerHTML để gán nội dung vào thẻ div thay vì document.writeln
+    const content = `
+        <div class="card">
+            <div class="avatar">👤</div>
+            <h3>Mọi chi tiết xin vui lòng liên hệ</h3>
+            <div class="name">Trần Văn Duy Hải</div>
+            <div class="school">Trường Cao đẳng Kỹ thuật - Công nghệ Cao Đồng Nai</div>
+            
+            <div class="divider"></div>
+            
+            <div class="info-item">
+                <span>📞</span>
+                <a href="tel:0339947891">0339 947 891</a>
+            </div>
+            <div class="info-item">
+                <span>✉️</span>
+                <a href="mailto:haydatran2006@gmail.com">haydatran2006@gmail.com</a>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('contact-card').innerHTML = content;
+</script>
+
+</body>
+</html>

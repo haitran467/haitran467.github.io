@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Bật Tắt Đèn</title>
+<style type="text/css">
+  /* Cấu hình tổng thể và căn giữa nội dung */
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212; /* Mặc định ban đầu nền tối (đèn tắt) */
+    transition: background-color 0.4s ease; /* Hiệu ứng chuyển màu mượt mà */
+  }
+
+  /* Tạo kiểu cho nút bấm to hơn */
+  .btn {
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    margin: 0 10px 20px 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  }
+
+  /* Màu sắc riêng cho từng nút */
+  #tat {
+    background-color: #e74c3c;
+    color: #ffffff;
+  }
+
+  #mo {
+    background-color: #2ecc71;
+    color: #ffffff;
+  }
+
+  /* Định dạng khung ảnh */
+  #my_image {
+    max-width: 300px;
+    height: auto;
+  }
+</style>
+</head>
+
+<body>
+    <!-- Nhóm các nút bấm -->
+    <div>
+        <input name="tat" type="button" class="btn" id="tat" value="Tắt" onclick="document.getElementById('my_image').src='../images/den_tat2.png'; document.body.style.backgroundColor='#121212';" />
+        <input name="mo" type="button" class="btn" id="mo" value="Mở" onclick="document.getElementById('my_image').src='../images/den_sang2.png'; document.body.style.backgroundColor='#fffbe6';" />
+    </div>
+
+    <!-- Hình ảnh đèn nằm giữa bên dưới nút bấm -->
+    <img src="../images/den_tat2.png" name="my_image" id="my_image" alt="Đèn" />
+</body>
+</html>

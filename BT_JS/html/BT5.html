@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đồng Hồ Neon Sinh Động</title>
+    <style>
+        /* Căn giữa toàn bộ trang và tạo phông nền tối */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0d0e15;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Khung chứa đồng hồ dạng Card phát sáng */
+        .clock-container {
+            background: #161925;
+            padding: 30px 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8),
+                        0 0 20px rgba(0, 242, 254, 0.15);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        /* Tiêu đề trang trí */
+        .clock-title {
+            color: #8f9ba8;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        /* Phong cách số đồng hồ hiển thị (Chữ Neon) */
+        #dong-ho {
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: #4facfe;
+            /* Tạo hiệu ứng chữ phát sáng nhiều lớp (Glow effect) */
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.7),
+                         0 0 20px rgba(79, 172, 254, 0.5),
+                         0 0 40px rgba(0, 242, 254, 0.3);
+            letter-spacing: 2px;
+        }
+
+        /* Hiệu ứng nhịp đập nhẹ cho khung */
+        .pulse-ring {
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 25px;
+            border: 2px solid #00f2fe;
+            opacity: 0.3;
+            animation: pulse 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.98); opacity: 0.2; }
+            50% { transform: scale(1.02); opacity: 0.5; }
+            100% { transform: scale(0.98); opacity: 0.2; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="clock-container">
+    <div class="pulse-ring"></div>
+    <div class="clock-title">Thời Gian Thực</div>
+    
+    <div id="dong-ho">
+        00:00:00
+    </div>
+</div>
+
+<script>
+    function capNhatDongHo() {
+        const bayGio = new Date();
+
+        // Định dạng thời gian theo chuẩn Việt Nam (HH:mm:ss)
+        const chuoiThoiGian = bayGio.toLocaleTimeString('vi-VN');
+
+        // Ghi vào thẻ div
+        document.getElementById('dong-ho').innerText = chuoiThoiGian;
+    }
+
+    // Chạy ngay lần đầu tiên để tránh bị trễ 1 giây
+    capNhatDongHo();
+
+    // Chạy lặp lại sau mỗi 1 giây
+    setInterval(capNhatDongHo, 1000);
+</script>
+
+</body>
+</html>

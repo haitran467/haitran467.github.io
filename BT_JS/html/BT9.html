@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh Thắng Việt Nam 🐸 Nhà Ếch 3667 Studio</title>
+
+<!-- Font Inter Pro & FontAwesome 6 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --bg-app: #060907;
+        --panel-bg: rgba(15, 23, 18, 0.88);
+        --panel-surface: rgba(25, 38, 30, 0.65);
+        --accent-primary: #10b981;
+        --accent-glow: rgba(16, 185, 129, 0.4);
+        --text-bright: #ffffff;
+        --text-sub: #8ea396;
+        --border-glass: rgba(255, 255, 255, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+
+    body {
+        background-color: var(--bg-app);
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(5, 150, 105, 0.08) 0px, transparent 50%);
+        color: var(--text-bright);
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    /* Main App Layout */
+    .app-container {
+        background: var(--panel-bg);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid var(--border-glass);
+        border-radius: 24px;
+        padding: 24px;
+        width: 100%;
+        max-width: 1280px;
+        box-shadow: 0 40px 80px rgba(0,0,0,0.85), 0 0 50px var(--accent-glow);
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 24px;
+        position: relative;
+    }
+
+    @media (max-width: 1024px) {
+        .app-container { grid-template-columns: 1fr; }
+    }
+
+    /* Workspace Section */
+    .workspace { display: flex; flex-direction: column; gap: 16px; position: relative; }
+
+    /* Top Header Bar */
+    .app-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border-glass);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+        width: 44px; height: 44px;
+        background: linear-gradient(135deg, #10b981, #047857);
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 22px; box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .header-tools { display: flex; gap: 8px; }
+    .btn-tool {
+        background: var(--panel-surface);
+        border: 1px solid var(--border-glass);
+        color: var(--text-sub);
+        padding: 8px 14px; border-radius: 10px;
+        font-size: 0.8rem; font-weight: 500; cursor: pointer;
+        display: flex; align-items: center; gap: 6px; transition: all 0.25s;
+    }
+    .btn-tool:hover, .btn-tool.active {
+        background: var(--accent-primary); color: #000; font-weight: 600;
+        box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    /* Viewport Area */
+    .viewport-wrapper {
+        position: relative;
+        width: 100%; aspect-ratio: 16 / 9;
+        background: #000; border-radius: 16px;
+        overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+        display: flex; justify-content: center; align-items: center;
+    }
+
+    .viewport-wrapper img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        transform-origin: center center;
+    }
+
+    /* Floating Canvas Tools */
+    .canvas-overlay-tools {
+        position: absolute; top: 16px; right: 16px;
+        background: rgba(10, 15, 12, 0.75);
+        backdrop-filter: blur(12px); border: 1px solid var(--border-glass);
+        border-radius: 12px; padding: 6px; display: flex; gap: 4px; z-index: 5;
+    }
+
+    .icon-btn {
+        width: 34px; height: 34px; border-radius: 8px;
+        background: transparent; border: none; color: #fff;
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s;
+    }
+    .icon-btn:hover { background: rgba(255,255,255,0.15); color: var(--accent-primary); }
+
+    /* Navigation Arrows */
+    .nav-arrow {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        width: 48px; height: 48px; border-radius: 50%;
+        background: rgba(8, 12, 10, 0.6); border: 1px solid rgba(255,255,255,0.2);
+        color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(10px); transition: all 0.25s; z-index: 4;
+    }
+    .nav-arrow:hover {
+        background: var(--accent-primary); color: #000;
+        box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-50%) scale(1.1);
+    }
+    .nav-arrow.prev { left: 16px; }
+    .nav-arrow.next { right: 16px; }
+
+    /* Progress Bar */
+    .progress-container {
+        position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+        background: rgba(255,255,255,0.1); z-index: 6;
+    }
+    .progress-bar { height: 100%; width: 0%; background: var(--accent-primary); }
+
+    /* Thumbnails Carousel */
+    .thumb-carousel {
+        display: flex; gap: 10px; overflow-x: auto;
+        scrollbar-width: none; padding-bottom: 4px;
+    }
+    .thumb-card {
+        flex: 0 0 90px; height: 58px; border-radius: 10px;
+        overflow: hidden; cursor: pointer; opacity: 0.35;
+        border: 2px solid transparent; transition: all 0.25s;
+    }
+    .thumb-card img { width: 100%; height: 100%; object-fit: cover; }
+    .thumb-card.active {
+        opacity: 1; border-color: var(--accent-primary);
+        box-shadow: 0 0 12px var(--accent-glow); transform: translateY(-2px);
+    }
+
+    /* Right Sidebar Landscape Information */
+    .sidebar-inspector {
+        background: var(--panel-surface);
+        border: 1px solid var(--border-glass);
+        border-radius: 18px; padding: 20px;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    .meta-title h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: var(--accent-primary); }
+    .meta-title p { font-size: 0.8rem; color: var(--text-sub); }
+
+    /* Bảng thông tin giới thiệu cảnh quan */
+    .info-card {
+        background: rgba(0,0,0,0.35);
+        border: 1px solid var(--border-glass);
+        border-radius: 12px;
+        padding: 16px;
+        margin: 16px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .info-item .lbl {
+        font-size: 0.7rem;
+        color: var(--accent-primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .info-item .val {
+        font-size: 0.83rem;
+        color: var(--text-bright);
+        line-height: 1.45;
+    }
+
+    /* Modal Grid View Overlay */
+    .grid-modal {
+        position: absolute; inset: 0; background: rgba(6, 9, 7, 0.95);
+        backdrop-filter: blur(20px); border-radius: 24px; padding: 24px;
+        z-index: 20; display: none; flex-direction: column; gap: 16px;
+    }
+    .grid-modal.open { display: flex; }
+    .grid-header { display: flex; justify-content: space-between; align-items: center; }
+    .grid-content {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px; overflow-y: auto; padding-right: 6px;
+    }
+    .grid-item {
+        aspect-ratio: 16/10; border-radius: 12px; overflow: hidden;
+        border: 2px solid transparent; cursor: pointer; transition: all 0.25s;
+    }
+    .grid-item img { width: 100%; height: 100%; object-fit: cover; }
+    .grid-item:hover { border-color: var(--accent-primary); transform: scale(1.03); }
+</style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Main Workspace -->
+        <div class="workspace">
+            <!-- App Header -->
+            <div class="app-header">
+                <div class="brand">
+                    <div class="brand-logo">🐸</div>
+                    <div>
+                        <h2 style="font-size: 1.1rem; font-weight: 700;">Nhà Ếch 3667</h2>
+                        <p style="font-size: 0.75rem; color: var(--text-sub);">Danh Thắng & Di Sản Việt Nam</p>
+                    </div>
+                </div>
+
+                <div class="header-tools">
+                    <button class="btn-tool" onclick="toggleGridView()"><i class="fa-solid fa-border-all"></i> Kho Ảnh Grid</button>
+                    <button class="btn-tool" id="btn_play" onclick="togglePlay()"><i class="fa-solid fa-pause"></i> Auto Play</button>
+                </div>
+            </div>
+
+            <!-- Viewport Area -->
+            <div class="viewport-wrapper" id="viewport">
+                <div class="progress-container"><div class="progress-bar" id="progress_bar"></div></div>
+
+                <!-- Inspect Floating Toolbar -->
+                <div class="canvas-overlay-tools">
+                    <button class="icon-btn" onclick="zoomImage(0.15)" title="Phóng to"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button class="icon-btn" onclick="zoomImage(-0.15)" title="Thu nhỏ"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                    <button class="icon-btn" onclick="rotateImage()" title="Xoay ảnh 90°"><i class="fa-solid fa-rotate-right"></i></button>
+                    <button class="icon-btn" onclick="resetTransform()" title="Đặt lại kích thước"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                </div>
+
+                <button class="nav-arrow prev" onclick="chuyenAnh(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <img id="main_image" src="../images/CauTheHuc.jpg" alt="Phong cảnh">
+                <button class="nav-arrow next" onclick="chuyenAnh(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Thumbnails Track -->
+            <div class="thumb-carousel" id="thumb_track"></div>
+        </div>
+
+        <!-- Sidebar Landscape Inspector (Thay thế EXIF bằng Giới thiệu ngắn gọn) -->
+        <div class="sidebar-inspector">
+            <div>
+                <div class="meta-title">
+                    <h3 id="photo_title">Tên Danh Thắng</h3>
+                    <p id="photo_loc"><i class="fa-solid fa-location-dot"></i> Vị trí</p>
+                </div>
+
+                <!-- Khung thông tin giới thiệu ngắn gọn -->
+                <div class="info-card">
+                    <div class="info-item">
+                        <span class="lbl"><i class="fa-solid fa-circle-info"></i> Giới thiệu</span>
+                        <div class="val" id="info_intro">Mô tả ngắn về di tích.</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="lbl"><i class="fa-solid fa-clock-rotate-left"></i> Niên đại / Lịch sử</span>
+                        <div class="val" id="info_history">Thời gian xây dựng hoặc lịch sử.</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="lbl"><i class="fa-solid fa-star"></i> Nét đặc sắc</span>
+                        <div class="val" id="info_highlight">Điểm nổi bật thu hút du khách.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn-tool" style="width: 100%; justify-content: center;" onclick="toggleFullscreen()"><i class="fa-solid fa-expand"></i> Xem Toàn Màn Hình</button>
+                <div style="font-size: 0.72rem; color: var(--text-sub); text-align: center; margin-top: 4px;">
+                    Dùng phím <kbd style="background:rgba(255,255,255,0.1); padding:2px 4px; border-radius:4px;">←</kbd> <kbd style="background:rgba(255,255,255,0.1); padding:2px 4px; border-radius:4px;">→</kbd> để chuyển địa danh
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid Modal View -->
+        <div class="grid-modal" id="grid_modal">
+            <div class="grid-header">
+                <h3><i class="fa-solid fa-border-all"></i> Kho Danh Thắng Việt Nam</h3>
+                <button class="btn-tool" onclick="toggleGridView()"><i class="fa-solid fa-xmark"></i> Đóng</button>
+            </div>
+            <div class="grid-content" id="grid_content"></div>
+        </div>
+    </div>
+
+<script>
+    // 1. Dữ liệu 8 địa danh cảnh quan từ thư mục images/ của bạn
+    var danhSachAnh = [
+        {
+            src: "../images/CauTheHuc.jpg",
+            title: "Cầu Thê Húc",
+            loc: "Hàng Trống, Hoàn Kiếm, Hà Nội",
+            intro: "Cây cầu gỗ màu đỏ son uốn cong như hình con tôm, nối liền bờ hồ Hoàn Kiếm với Đền Ngọc Sơn.",
+            history: "Xây dựng năm 1865 bởi danh sĩ Nguyễn Văn Siêu.",
+            highlight: "Tượng trưng cho sự ngưng tụ của ánh sáng mặt trời đỏ rực."
+        },
+        {
+            src: "../images/ChuaPhoMinh.jpg",
+            title: "Chùa Phổ Minh",
+            loc: "Lộc Vượng, Nam Định",
+            intro: "Ngôi chùa cổ kính nổi tiếng gắn liền với thời kỳ hoàng kim của vương triều nhà Trần.",
+            history: "Khởi dựng thời Lý, mở rộng lớn vào năm 1262.",
+            highlight: "Tháp Phổ Minh cao 14 tầng bằng gạch nung tồn tại hàng trăm năm."
+        },
+        {
+            src: "../images/CoDoHue.jpg",
+            title: "Cố Đô Huế",
+            loc: "Tỉnh Thừa Thiên Huế",
+            intro: "Quần thể di tích lịch sử triều Nguyễn - Di sản Văn hóa Thế giới được UNESCO công nhận.",
+            history: "Xây dựng từ năm 1802 dưới thời vua Gia Long.",
+            highlight: "Kiến trúc Cung đình tráng lệ cùng cảnh quan thơ mộng bên sông Hương."
+        },
+        {
+            src: "../images/PhoCoHoiAn.jpg",
+            title: "Phố Cổ Hội An",
+            loc: "Thành phố Hội An, Quảng Nam",
+            intro: "Thương cảng quốc tế sầm uất mang vẻ đẹp hoài cổ với những ngôi nhà tường vàng mái ngói.",
+            history: "Phát triển rực rỡ từ thế kỷ 16 đến thế kỷ 19.",
+            highlight: "Sự giao thoa kiến trúc đặc sắc giữa Việt Nam, Nhật Bản và Trung Hoa."
+        },
+        {
+            src: "../images/ThanhCoLoa.jpg",
+            title: "Thành Cổ Loa",
+            loc: "Đông Anh, Hà Nội",
+            intro: "Tòa thành cổ có quy mô lớn và cấu trúc xoáy trôn ốc độc đáo nhất lịch sử Việt Nam.",
+            history: "Xây dựng dưới thời vua An Dương Vương (thế kỷ 3 TCN).",
+            highlight: "Gắn liền với truyền thuyết Nỏ thần và mối tình Mị Châu - Trọng Thủy."
+        },
+        {
+            src: "../images/ThanhDiaMySon.jpg",
+            title: "Thánh Địa Mỹ Sơn",
+            loc: "Duy Phú, Duy Xuyên, Quảng Nam",
+            intro: "Quần thể đền tháp Chăm Pa ẩn mình trong thung lũng hẻo lánh bao bọc bởi núi đồi.",
+            history: "Xây dựng từ thế kỷ 4 đến thế kỷ 13.",
+            highlight: "Kỹ thuật xây gạch không cần hồ dính đầy bí ẩn của người Chăm cổ."
+        },
+        {
+            src: "../images/NhaTuConDao.jpg",
+            title: "Nhà Tù Côn Đảo",
+            loc: "Huyện Côn Đảo, Bà Rịa - Vũng Tàu",
+            intro: "Hệ thống nhà tù do thực dân Pháp và Mỹ xây dựng để giam giữ các chiến sĩ cách mạng.",
+            history: "Thành lập năm 1862, hoạt động trong suốt 113 năm.",
+            highlight: "Được mệnh danh là 'Địa ngục trần gian' với khu Chuồng Cọp nổi tiếng."
+        },
+        {
+            src: "../images/DinhDocLap.jpg",
+            title: "Dinh Độc Lập",
+            loc: "Quận 1, Thành phố Hồ Chí Minh",
+            intro: "Công trình kiến trúc hiện đại độc đáo, nơi chứng kiến sự kiện lịch sử Giải phóng miền Nam 30/4/1975.",
+            history: "Khởi công xây dựng năm 1962 theo thiết kế của KTS Ngô Truyền Mộng.",
+            highlight: "Biểu tượng hòa bình và thống nhất toàn vẹn lãnh thổ Việt Nam."
+        },
+        {
+            src: "../images/DenNgocSon.jpg",
+            title: "Đền Ngọc Sơn",
+            loc: "Hàng Trống, Hoàn Kiếm, Hà Nội",
+            intro: "Ngôi đền cổ kính nằm trọn trên đảo Ngọc xanh tươi giữa lòng Hồ Gươm lịch sử.",
+            history: "Được xây dựng vào thế kỷ 19, thờ Đức Thánh Trần và Văn Xương Đế Quân.",
+            highlight: "Nơi lưu giữ tiêu bản Cụ Rùa Hồ Gươm quý giá cùng Tháp Bút, Đài Nghiên."
+        }
+    ];
+
+    var indexHienTai = 0;
+    var isPlaying = true;
+    var intervalTime = 4500;
+    var progressInterval;
+    var progressValue = 0;
+
+    var zoomScale = 1;
+    var rotationAngle = 0;
+
+    // 2. Render Thumbnails & Grid View
+    function initGallery() {
+        var track = document.getElementById("thumb_track");
+        var grid = document.getElementById("grid_content");
+        track.innerHTML = "";
+        grid.innerHTML = "";
+
+        danhSachAnh.forEach(function(item, i) {
+            // Render Thumbnails Carousel
+            var card = document.createElement("div");
+            card.className = "thumb-card" + (i === indexHienTai ? " active" : "");
+            var img = document.createElement("img");
+            img.src = item.src;
+            card.appendChild(img);
+            card.onclick = function() { hienThiAnh(i); };
+            track.appendChild(card);
+
+            // Render Modal Grid Items
+            var gItem = document.createElement("div");
+            gItem.className = "grid-item";
+            var gImg = document.createElement("img");
+            gImg.src = item.src;
+            gItem.appendChild(gImg);
+            gItem.onclick = function() {
+                hienThiAnh(i);
+                toggleGridView();
+            };
+            grid.appendChild(gItem);
+        });
+    }
+
+    // 3. Hiển thị thông tin Cảnh quan
+    function hienThiAnh(index) {
+        indexHienTai = index;
+        var mainImg = document.getElementById("main_image");
+        var data = danhSachAnh[indexHienTai];
+
+        resetTransform();
+
+        mainImg.style.opacity = "0.2";
+        setTimeout(function() {
+            mainImg.src = data.src;
+            document.getElementById("photo_title").innerText = data.title;
+            document.getElementById("photo_loc").innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.loc}`;
+            document.getElementById("info_intro").innerText = data.intro;
+            document.getElementById("info_history").innerText = data.history;
+            document.getElementById("info_highlight").innerText = data.highlight;
+            mainImg.style.opacity = "1";
+        }, 200);
+
+        var thumbs = document.querySelectorAll(".thumb-card");
+        thumbs.forEach(function(card, i) {
+            if (i === indexHienTai) {
+                card.classList.add("active");
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                card.classList.remove("active");
+            }
+        });
+
+        resetProgress();
+    }
+
+    // 4. Các Công Cụ Zoom / Rotate
+    function zoomImage(amount) {
+        zoomScale += amount;
+        if (zoomScale < 0.5) zoomScale = 0.5;
+        if (zoomScale > 3) zoomScale = 3;
+        applyTransform();
+    }
+
+    function rotateImage() {
+        rotationAngle += 90;
+        applyTransform();
+    }
+
+    function resetTransform() {
+        zoomScale = 1;
+        rotationAngle = 0;
+        applyTransform();
+    }
+
+    function applyTransform() {
+        var mainImg = document.getElementById("main_image");
+        mainImg.style.transform = `scale(${zoomScale}) rotate(${rotationAngle}deg)`;
+    }
+
+    // 5. Chuyển ảnh Next/Prev
+    function chuyenAnh(step) {
+        var newIndex = indexHienTai + step;
+        if (newIndex >= danhSachAnh.length) newIndex = 0;
+        if (newIndex < 0) newIndex = danhSachAnh.length - 1;
+        hienThiAnh(newIndex);
+    }
+
+    // 6. Progress Bar Auto Play
+    function startProgress() {
+        clearInterval(progressInterval);
+        progressValue = 0;
+        var progressBar = document.getElementById("progress_bar");
+        if (!isPlaying) { progressBar.style.width = "0%"; return; }
+
+        var step = 100 / (intervalTime / 40);
+        progressInterval = setInterval(function() {
+            progressValue += step;
+            progressBar.style.width = progressValue + "%";
+            if (progressValue >= 100) chuyenAnh(1);
+        }, 40);
+    }
+
+    function resetProgress() { startProgress(); }
+
+    function togglePlay() {
+        isPlaying = !isPlaying;
+        document.getElementById("btn_play").innerHTML = isPlaying ? `<i class="fa-solid fa-pause"></i> Auto Play` : `<i class="fa-solid fa-play"></i> Tiếp tục Auto`;
+        startProgress();
+    }
+
+    function toggleGridView() {
+        var modal = document.getElementById("grid_modal");
+        modal.classList.toggle("open");
+    }
+
+    function toggleFullscreen() {
+        var elem = document.getElementById("viewport");
+        if (!document.fullscreenElement) elem.requestFullscreen();
+        else document.exitFullscreen();
+    }
+
+    // Phím tắt bàn phím
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "ArrowLeft") chuyenAnh(-1);
+        if (e.key === "ArrowRight") chuyenAnh(1);
+        if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+    });
+
+    initGallery();
+    hienThiAnh(0);
+</script>
+
+</body>
+</html>

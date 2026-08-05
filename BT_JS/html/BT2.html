@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Bài Thực Hành - Các Phép Toán Cơ Bản</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    color: #ffffff;
+    padding: 20px;
+  }
+
+  /* Khung máy tính Glassmorphism */
+  .calc-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 35px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .calc-title {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #38bdf8;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+  }
+
+  /* Nút bấm phép toán */
+  .btn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .btn-op {
+    flex: 1;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #38bdf8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-op:hover {
+    background: #38bdf8;
+    color: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+  }
+
+  .btn-op:active {
+    transform: translateY(0);
+  }
+
+  /* Khung hiển thị kết quả */
+  .result-box {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    text-align: center;
+  }
+
+  .result-label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+  }
+
+  .result-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Consolas', monospace;
+    color: #4ade80;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-all;
+  }
+
+  .error {
+    color: #f87171 !important;
+    font-size: 1rem !important;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="calc-card">
+    <div class="calc-title">🔢 Làm quen với phép toán</div>
+
+    <div class="form-group">
+        <label for="txtso1">Nhập số thứ 1:</label>
+        <input type="number" id="txtso1" class="form-input" placeholder="Ví dụ: 10">
+    </div>
+
+    <div class="form-group">
+        <label for="txtso2">Nhập số thứ 2:</label>
+        <input type="number" id="txtso2" class="form-input" placeholder="Ví dụ: 5">
+    </div>
+
+    <div class="form-group">
+        <label>Chọn phép toán:</label>
+        <div class="btn-group">
+            <button class="btn-op" onclick="tinhToan('+')">+</button>
+            <button class="btn-op" onclick="tinhToan('-')">-</button>
+            <button class="btn-op" onclick="tinhToan('*')">×</button>
+        </div>
+    </div>
+
+    <div class="result-box">
+        <div class="result-label">Kết quả</div>
+        <div id="ketqua" class="result-value">---</div>
+    </div>
+</div>
+
+<script>
+    function tinhToan(phepTinh) {
+        var val1 = document.getElementById("txtso1").value.trim();
+        var val2 = document.getElementById("txtso2").value.trim();
+        var theKetQua = document.getElementById("ketqua");
+
+        // Kiểm tra dữ liệu nhập
+        if (val1 === "" || val2 === "") {
+            theKetQua.className = "result-value error";
+            theKetQua.innerText = "Vui lòng nhập đủ 2 số!";
+            return;
+        }
+
+        var so1 = Number(val1);
+        var so2 = Number(val2);
+        var kq = 0;
+
+        theKetQua.className = "result-value";
+
+        switch (phepTinh) {
+            case '+':
+                kq = so1 + so2;
+                break;
+            case '-':
+                kq = so1 - so2;
+                break;
+            case '*':
+                kq = so1 * so2;
+                break;
+        }
+
+        theKetQua.innerText = kq;
+    }
+</script>
+
+</body>
+</html>

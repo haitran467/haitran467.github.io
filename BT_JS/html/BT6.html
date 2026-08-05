@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Bài 6 - Đồng hồ sinh động</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+    color: #ffffff;
+  }
+
+  /* Khung thẻ kính mờ (Glassmorphism) */
+  .clock-card {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Đồng hồ kim */
+  .analog-clock {
+    width: 150px;
+    height: 150px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+  }
+
+  .analog-clock::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #38bdf8;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 4px;
+    transform: translateX(-50%); /* Căn giữa kim mặc định */
+  }
+
+  .hand.hour {
+    width: 4px;
+    height: 35px;
+    background: #ffffff;
+  }
+
+  .hand.minute {
+    width: 3px;
+    height: 50px;
+    background: #cbd5e1;
+  }
+
+  .hand.second {
+    width: 2px;
+    height: 60px;
+    background: #f43f5e;
+  }
+
+  /* Lời chúc */
+  .greeting {
+    font-size: 1.1rem;
+    color: #38bdf8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Ngày tháng */
+  .date-display {
+    font-size: 1.1rem;
+    color: #94a3b8;
+  }
+
+  /* Đồng hồ số */
+  .digital-clock {
+    font-size: 3.2rem;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    /* ĐÃ SỬA: Thêm dấu - vào trước webkit */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  }
+</style>
+</head>
+
+<body>
+
+<div class="clock-card">
+    <div id="greeting" class="greeting">Xin chào!</div>
+    
+    <!-- Đồng hồ kim -->
+    <div class="analog-clock">
+        <div class="hand hour" id="hand-hour"></div>
+        <div class="hand minute" id="hand-min"></div>
+        <div class="hand second" id="hand-sec"></div>
+    </div>
+
+    <!-- Ngày tháng & Đồng hồ số -->
+    <div class="date-display" id="ngay"></div>
+    <div class="digital-clock" id="dong-ho">00:00:00</div>
+</div>
+
+<script>
+    function padZero(num) {
+        return num < 10 ? '0' + num : num;
+    }
+
+    function capNhatToanBo() {
+        const d = new Date();
+
+        // 1. Cập nhật Lời chúc theo giờ
+        const gio = d.getHours();
+        let loiChuc = "Chúc một ngày tốt lành!";
+        if (gio >= 5 && gio < 12) loiChuc = "🌅 Chúc buổi sáng may mắn!";
+        else if (gio >= 12 && gio < 18) loiChuc = "☀️ Chúc buổi chiều làm việc hiệu quả!";
+        else if (gio >= 18 && gio < 23) loiChuc = "🌙 Chúc buổi tối thư giãn!";
+        else loiChuc = "🌌 Đêm đã muộn, hãy nghỉ ngơi sớm nhé!";
+        document.getElementById('greeting').innerText = loiChuc;
+
+        // 2. Cập nhật Ngày tháng
+        const thuArray = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+        const thu = thuArray[d.getDay()];
+        const dd = padZero(d.getDate());
+        const mm = padZero(d.getMonth() + 1);
+        const yyyy = d.getFullYear();
+        document.getElementById('ngay').innerHTML = `${thu}, ngày ${dd} tháng ${mm} năm ${yyyy}`;
+
+        // 3. Cập nhật Đồng hồ số
+        const hh = padZero(d.getHours());
+        const min = padZero(d.getMinutes());
+        const ss = padZero(d.getSeconds());
+        document.getElementById('dong-ho').innerText = `${hh}:${min}:${ss}`;
+
+        // 4. Cập nhật Góc quay Đồng hồ kim
+        const secDeg = (d.getSeconds() / 60) * 360;
+        const minDeg = ((d.getMinutes() + d.getSeconds() / 60) / 60) * 360;
+        const hourDeg = (((d.getHours() % 12) + d.getMinutes() / 60) / 12) * 360;
+
+        document.getElementById('hand-sec').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+        document.getElementById('hand-min').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+        document.getElementById('hand-hour').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+    }
+
+    // Chạy lập tức và thiết lập vòng lặp 1 giây
+    capNhatToanBo();
+    setInterval(capNhatToanBo, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Đổi Màu Theo Giây Sinh Động</title>
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #ffffff;
+        /* Mặc định màu ban đầu */
+        background: linear-gradient(135deg, #e63946, #b80924);
+        /* Giúp hiệu ứng chuyển màu phông nền mượt mà trong 0.8 giây */
+        transition: background 0.8s ease;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Thẻ hiển thị trung tâm */
+    .card {
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 40px 60px;
+        border-radius: 24px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+    }
+
+    /* Hiển thị số giây to phát sáng */
+    .second-display {
+        font-size: 5rem;
+        font-weight: 800;
+        font-family: 'Consolas', monospace;
+        letter-spacing: 2px;
+        margin: 10px 0;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        /* Hiệu ứng nhịp đập đếm giây */
+        animation: pulse 1s infinite alternate;
+    }
+
+    /* Nhãn trạng thái chẵn/lẻ */
+    .status-badge {
+        display: inline-block;
+        padding: 8px 20px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(0.96); opacity: 0.8; }
+        100% { transform: scale(1.04); opacity: 1; }
+    }
+
+    /* Các vòng tròn trang trí trôi phía sau */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        animation: float 8s infinite ease-in-out;
+    }
+
+    .circle-1 { width: 300px; height: 300px; top: -50px; left: -50px; }
+    .circle-2 { width: 200px; height: 200px; bottom: -30px; right: -30px; animation-delay: -4s; }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-30px) rotate(180deg); }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Các hình tròn bay phía sau -->
+<div class="bg-circle circle-1"></div>
+<div class="bg-circle circle-2"></div>
+
+<!-- Khung nội dung chính -->
+<div class="card">
+    <div style="font-size: 1.1rem; opacity: 0.9;">Giây hiện tại</div>
+    <div id="so-giay" class="second-display">00</div>
+    <div id="trang-thai" class="status-badge">Đang tải...</div>
+</div>
+
+<script>
+    function padZero(num) {
+        return num < 10 ? '0' + num : num;
+    }
+
+    function doiMauTheoGiay() {
+        var giay = new Date().getSeconds();
+        
+        // Cập nhật số giây
+        document.getElementById('so-giay').innerText = padZero(giay);
+
+        // Kiểm tra điều kiện chẵn / lẻ
+        if (giay % 2 === 0) {
+            // Giây chẵn -> Gradient Đỏ
+            document.body.style.background = "linear-gradient(135deg, #e63946, #900c3f)";
+            document.getElementById('trang-thai').innerText = "🔴 Giây Chẵn - Màu Đỏ";
+        } else {
+            // Giây lẻ -> Gradient Xanh
+            document.body.style.background = "linear-gradient(135deg, #0077b6, #03045e)";
+            document.getElementById('trang-thai').innerText = "🔵 Giây Lẻ - Màu Xanh";
+        }
+    }
+
+    // Chạy lập tức lần đầu
+    doiMauTheoGiay();
+
+    // Chạy lặp lại sau mỗi 1 giây
+    setInterval(doiMauTheoGiay, 1000);
+</script>
+
+</body>
+</html>
